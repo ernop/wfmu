@@ -1,0 +1,103 @@
+"http://www.wfmu.org/playlists/FX" == (More Than A Few) Exciting Moments == with Frank O'Toole
+"http://www.wfmu.org/playlists/PT" == Paid By The Tear == with Sasha
+"http://www.wfmu.org/playlists/JA" == The John Allen Show == 
+"http://www.wfmu.org/playlists/MD" == The Long Rally == with Scott McDowell
+
+"http://www.wfmu.org/playlists/CS" == Micah == 
+"http://www.wfmu.org/playlists/SP" == Shrunken Planet == with Jeffrey Davison
+
+"http://www.wfmu.org/playlists/NK" == Burn It Down! == with Nate K
+
+"http://www.wfmu.org/playlists/SN" == Surface Noise == with Joe McGasko
+
+"http://www.wfmu.org/playlists/LM" == This Is The Modern World == with Trouble
+
+"http://www.wfmu.org/playlists/KF" == Ken == 
+"http://www.wfmu.org/playlists/ID" == Imaginary Radio == with Chris M.
+
+"http://www.wfmu.org/playlists/BY" == Marty McSorley == 
+"http://www.wfmu.org/playlists/BB" == Bob Brainen == 
+"http://www.wfmu.org/playlists/RS" == Reggae Schoolroom == with Jeff Sarge
+
+"http://www.wfmu.org/playlists/SH" == Michael Shelley == 
+"http://www.wfmu.org/playlists/TM" == Three Chord Monte == with Joe Belock
+
+"http://www.wfmu.org/playlists/LB" == Liz Berg == 
+"http://www.wfmu.org/playlists/DH" == Duane Train == 
+"http://www.wfmu.org/playlists/DK" == Diane's Kamikaze Fun Machine == 
+"http://www.wfmu.org/playlists/BK" == Bryce == 
+"http://www.wfmu.org/Playlists/GJ/archives.html" == The Glen Jones Radio Programme == 
+"http://www.wfmu.org/playlists/FP" == Fool's Paradise == with Rex
+
+"http://www.wfmu.org/playlists/JP" == Jim PriceScott Williams == 
+"http://www.wfmu.org/playlists/BT" == Brian Turner == 
+"http://www.wfmu.org/playlists/IC" == Irwin Chusid == 
+"http://www.wfmu.org/playlists/FR" == Strength Through Failure == with Fabio
+
+"http://www.wfmu.org/playlists/CF" == Sophisticated Boom Boom == with Sheila B.
+
+"http://www.wfmu.org/playlists/TA" == Todd-o-phonic Todd == 
+"http://www.wfmu.org/playlists/TW" == Teenage Wasteland == with Bill Kelly
+
+"http://www.wfmu.org/playlists/GF" == Gaylord Fields == 
+"http://www.wfmu.org/playlists/GM" == Dr. Gameshow == with Jo Firestone
+
+"http://www.wfmu.org/playlists/BC" == Sportsy Talk == with Bronwyn C. and Jim the Poet
+
+"http://www.wfmu.org/playlists/SD" == Seven Second Delay == with Ken and Andy
+
+"http://www.wfmu.org/playlists/CP" == The Dusty Show == with Clay Pigeon
+
+"http://www.wfmu.org/playlists/AF" == Shut Up, Weirdo == with Frangry and Michele
+
+"http://www.wfmu.org/playlists/TP" == Transpacific Sound Paradise == with Rob Weisberg
+
+"http://www.wfmu.org/playlists/VF" == Vocal Fry == with Dan Bodah
+
+"http://www.wfmu.org/playlists/PE" == Morricone Island == with Devon E. Levins
+
+"http://www.wfmu.org/playlists/DU" == DIFM (Do It For Me) == with Pseu Braun
+
+"http://www.wfmu.org/playlists/HA" == Miracle Nutrition with Hearty White == 
+"http://www.wfmu.org/playlists/BJ" == Put The Needle On The Record == with Billy Jam
+
+"http://www.wfmu.org/playlists/HC" == Hello Children == with Faye
+
+"http://www.wfmu.org/playlists/DT" == Infinite Distortion == 
+"http://www.wfmu.org/playlists/AP" == The Antique Phonograph Music Program == with MAC
+
+"http://www.wfmu.org/playlists/HG" == Honky Tonk Radio Girl == with Becky
+
+"http://www.wfmu.org/playlists/CR" == Sinner's Crossroads == with Kevin Nutt
+
+"http://www.wfmu.org/playlists/SV" == Downtown Soulville == with Mr. Fine Wine
+
+"http://www.wfmu.org/playlists/GS" == The Goddamn Dave Hill Show == 
+"http://www.wfmu.org/playlists/IT" == Irene Trudel == 
+"http://www.wfmu.org/playlists/ED" == The Evan "Funk" Davies Show == 
+"http://www.wfmu.org/playlists/MS" == Music To Spazz By == with Dave the Spazz
+
+"http://www.wfmu.org/playlists/DN" == Daniel Blumin == 
+"http://www.wfmu.org/playlists/RR" == Prove It All Night! == with Pat Byrne
+
+"http://www.wfmu.org/playlists/DM" == World of Echo == with Dave Mandl
+
+"http://www.wfmu.org/playlists/JJ" == The Frow Show == with Jesse Jarnow
+
+"http://www.wfmu.org/playlists/WB" == Wm. Berger presents My Castle of Quiet == 
+"http://www.wfmu.org/playlists/ND" == Nickel and Dime Radio == with $mall ¢hange
+
+"http://www.wfmu.org/playlists/NN" == Nick Name == 
+"http://www.wfmu.org/playlists/IS" == Inflatable Squirrel Carcass == with Rich Hazelton
+
+"http://www.wfmu.org/playlists/MY" == 100% Whatever == with Mary Wing
+
+"http://www.wfmu.org/playlists/TQ" == Therese == 
+"http://www.wfmu.org/playlists/AG" == Samantha == 
+"http://www.wfmu.org/playlists/GT" == Garbage Time == with Matt Warwick
+
+"http://www.wfmu.org/playlists/SG" == Rolling Motion == 
+"http://www.wfmu.org/playlists/SS" == Stan == 
+"http://www.wfmu.org/playlists/YN" == Dance With Me, Stanley == with Stashu
+"http://www.wfmu.org/playlists/UT" == Blurred and Obscured == with Jonathan Herweg
+"http://www.wfmu.org/playlists/AH" == The Avant Ghetto ==  with Jeff Conklin

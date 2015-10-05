@@ -25,15 +25,29 @@ class MicBreakAdmin(OverriddenModelAdmin):
     adminify(myshow)
     
 class ShowAdmin(OverriddenModelAdmin):
-    list_display='id name mydj myepisodes mp3_initial'.split()
+    list_display='id myarchive myshowexists name mydj myepisodes mp3_initial'.split()
     search_fields=['name',]
     def mydj(self, obj):
         return obj.dj.clink()
         
     def myepisodes(self, obj):
         return '<a href="../episode?show__id=%d">episodes</a>'%(obj.id)
+    
+    def myarchive(self, obj):
+        return obj.mp3_initial and '<a href=http://strelka.wfmu.org:5555/archive/%s/>archive</a>'%(obj.mp3_initial) or ''
         
-    adminify(mydj, myepisodes)
+    def myshowexists(self, obj):
+        if not obj.mp3_initial:
+            return False
+        files=os.listdir('mp3')
+        for file in files:
+            if not file.endswith('.mp3'):
+                continue
+            if file.lower().startswith(obj.mp3_initial.lower()):
+                return True
+        return False
+        
+    adminify(mydj, myepisodes, myshowexists, myarchive)
     
 class EpisodeAdmin(OverriddenModelAdmin):
     list_display='id name myshow mydj mysongs mp3_filename mp3_length mp3_offset start_time length web_only'.split()
@@ -56,7 +70,7 @@ class AlbumAdmin(OverriddenModelAdmin):
         return '<br>'.join([artist.clink() for artist in obj.artists.all()])
     
     def mylabel(self, obj):
-        return obj.label.clink()
+        return obj.label and obj.label.clink() or 'no label'
     
     def mysongs(self, obj):
         return '<br>'.join([song.clink(text=song.name) for song in obj.songs.all()])

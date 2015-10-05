@@ -1,0 +1,2381 @@
+<!--recentarchives.php Written 4/16/02 by Ken Garson. Copyright (C) 2002-15 Ken Garson. v8/30/15-->
+<!--Recent archives template written 4/16/02 by Ken Garson, (C) 2002-13 Ken Garson. v7/27/13-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+WFMU's Recent Archives
+</title>
+<script src="WFMU%27s%20Recent%20Archives_files/ga.js" async="" type="text/javascript"></script><script type="text/javascript">
+function accuflashlink(s,a,v,c,t,d) { document.write('<a href="/flashplayer.php?version=',v,'&show=',s,'&archive=',a,(c ? '&starttime=' + c : ''),(d ? '&drop=' + d : ''),'" onclick="javascript:window.open(this.href,\'kdbflashplayerwindow\',\'',(v==1?'width=645,height=135':'width=540,height=164'),',scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no\'); return false;">', (t ? '<img src="/flashplayer/playbuttont.gif" style="vertical-align: middle;" width=30 height=17 border=0>&nbsp;Pop&#8209;up&nbsp;player!' : 'Pop&#8209;up'),'<\/a>');
+}
+</script>
+<link type="text/css" href="WFMU%27s%20Recent%20Archives_files/jquery-ui-1.css" rel="stylesheet">
+<script type="text/javascript" src="WFMU%27s%20Recent%20Archives_files/jquery-1.js"></script>
+<script type="text/javascript" src="WFMU%27s%20Recent%20Archives_files/jquery.js"></script>
+<script type="text/javascript" src="WFMU%27s%20Recent%20Archives_files/jquery-ui-1.js"></script>
+<style type="text/css">
+.noDialogTitle .ui-dialog-titlebar {display:none}
+.ui-widget {
+font-size: 13px;
+}
+.ui-dialog .ui-dialog-content, .ui-widget-content a {
+padding: 0px;
+line-height:150%;
+font-weight: normal;
+color: black;
+}
+</style>
+<script type="text/javascript" src="WFMU%27s%20Recent%20Archives_files/kenzodb_fav_comp.js"></script>
+<style type="text/css">
+BODY, TD, TH, .everything, .fill-ins, CAPTION {
+color: blue;
+font-family: arial, helvetica, sans-serif;
+}
+BODY {
+background-color: #C6D6E7;
+}
+TD, TH {
+background-color: white;
+}
+H1 {
+font-size: 170%;
+}
+H2 {
+font-size: 150%;
+}
+A:link {
+color: blue
+}
+A:visited {
+color: navy
+}
+A:active {
+color: blue
+}
+.program {
+font-size: 10px;
+}
+.show-title {
+color: black;
+font-size: 130%;
+}
+A.show-title-link {
+text-decoration: none;
+}
+A.show-title-link:link {
+color: black;
+}
+A.show-title-link:visited {
+color: maroon;
+}
+A.show-title-link:hover {
+color: blue;
+}
+.djs {
+color: black;
+}
+.webonly {
+color: black;
+font-style: italic;
+}
+.archive-link {
+}
+A.archive-link {
+text-decoration: underline; /* force underline on archive links */
+}
+.hour {
+font-size: 10px;
+color: white;
+background-color: #42638C;
+}
+.day {
+font-size: 14px;
+color: white;
+background-color: #42638C;
+}
+.fill-ins {
+font-size: 10px;
+}
+.key {
+font-size: 12px;
+}
+</style>
+<link rel="alternate" type="application/rss+xml" title="WFMU Playlists feed" href="http://www.wfmu.org/playlistfeed.xml">
+<link rel="alternate" type="application/rss+xml" title="WFMU MP3 archives feed" href="http://www.wfmu.org/archivefeed/mp3.xml">
+<link href="WFMU%27s%20Recent%20Archives_files/socialwidgets.css" type="text/css" rel="stylesheet"></head>
+<body>
+
+<script type="text/javascript">
+KDBFav.initialize({"myurl":"\/recentarchives.php","login":"\/auth.php?a=login&r=%2Frecentarchives.php","register":"\/auth.php?a=register&r=%2Frecentarchives.php","profile_favs":"\/auth.php?a=update_profile&panel_id=favorites&r=%2Frecentarchives.php","fav_icon_clicked":"\/auth.php?a=fav_icon_clicked&r=%2Frecentarchives.php","user_favs_base":"\/user_favs.php","song_page_base":"\/song.php","controller":"\/favcon.php","fav_unset_icon":"\/Gfx\/star_empty_2.png","fav_set_icon":"\/Gfx\/star_favorited_2.png","fav_busy_icon":"\/Gfx\/star_empty_spin.gif"},"recentarchives","36");
+</script><div aria-labelledby="ui-dialog-title-1" role="dialog" tabindex="-1" class="ui-dialog ui-widget ui-widget-content ui-corner-all noDialogTitle" style="display: none; z-index: 1000; outline: 0px none;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-dialog-title-1" class="ui-dialog-title">&nbsp;</span><a role="button" class="ui-dialog-titlebar-close ui-corner-all" href="#"><span class="ui-icon ui-icon-closethick">close</span></a></div><div class="KDBFavPop ui-dialog-content ui-widget-content"><div class="KDBFavPopMessage"></div></div></div>
+<iframe src="WFMU%27s%20Recent%20Archives_files/auth.htm" marginheight="0" scrolling="no" id="kdb_login_iframe" frameborder="0" height="27" width="100%">
+&lt;div align="right"&gt;
+&lt;a 
+href="http://www.wfmu.org/auth.php?a=login&amp;amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php"
+ target="_top"&gt;Login/Logout&lt;/a&gt; |
+&lt;a 
+href="http://www.wfmu.org/auth.php?a=register&amp;amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php"
+ target="_top"&gt;Register&lt;/a&gt; |
+Please enable inline frames!
+&lt;/div&gt;
+</iframe>
+<script type="text/javascript">
+function kdb_login_iframeResize(id){
+var size_element; var e;
+try {
+size_element=document.getElementById(id).contentWindow.document.getElementById("kdb_login_text_size");
+document.getElementById(id).height= (size_element.clientHeight + 2) + "px";
+document.getElementById(id).width= (size_element.clientWidth + 17) + "px";
+} catch (e) {}
+}
+</script>
+<!--Generated by KenzoDB ( http://kenzodb.com ), (C) 2000-2015 Ken Garson-->
+<table border="1" cellspacing="1">
+<caption>
+<h1 align="center">
+WFMU's Most Recent Archives
+</h1>
+</caption>
+<tbody><tr><th colspan="9" class="key">
+Click <b>show links</b> to hear most recent shows •
+Click <b>titles</b> for more archives/playlists •
+Fill-in shows are at the bottom •
+Updated Sep. 26 2:19pm
+<br>
+RSS feeds:
+<a href="http://www.wfmu.org/archivefeed/mp3.xml"><img src="WFMU%27s%20Recent%20Archives_files/feed-icon-14x14.png" alt="RSS" height="14" border="0" width="14"> MP3</a> |
+<a href="http://www.wfmu.org/playlistfeed.xml"><img src="WFMU%27s%20Recent%20Archives_files/feed-icon-14x14.png" alt="RSS" height="14" border="0" width="14"> Playlists feed</a>
+</th></tr>
+<tr>
+<th class="day">&nbsp;</th>
+<th class="day" width="14%">MONDAY</th>
+<th class="day" width="14%">TUESDAY</th>
+<th class="day" width="14%">WEDNESDAY</th>
+<th class="day" width="14%">THURSDAY</th>
+<th class="day" width="14%">FRIDAY</th>
+<th class="day" width="14%">SATURDAY</th>
+<th class="day" width="14%">SUNDAY</th>
+<th class="day">&nbsp;</th>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">6am</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-FX">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=FX&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/FX" class="show-title-link">(More Than A Few) Exciting Moments</a>
+</span>
+<span class="djs">
+<br>
+with Frank O'Toole
+</span>
+<span class="webonly">
+<br>
+(Web-only)
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62718">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62718&amp;archive=133523" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62718','133522',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62718&amp;archive=133522" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-PT">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=PT&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/PT" class="show-title-link">Paid By The Tear</a>
+</span>
+<span class="djs">
+<br>
+with Sasha
+</span>
+<span class="webonly">
+<br>
+(Web-only)
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62700">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62700&amp;archive=133555" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62700','133554',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62700&amp;archive=133554" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-JA">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=JA&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/JA" class="show-title-link">The John Allen Show</a>
+</span>
+<span class="webonly">
+<br>
+(Web-only)
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62756">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62756&amp;archive=133586" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62756','133585',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62756&amp;archive=133585" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-MD">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=MD&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/MD" class="show-title-link">The Long Rally</a>
+</span>
+<span class="djs">
+<br>
+with Scott McDowell
+</span>
+<span class="webonly">
+<br>
+(Web-only)
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62772">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62772&amp;archive=133621" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62772','133620',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62772&amp;archive=133620" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-CS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=CS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/CS" class="show-title-link">Micah</a>
+</span>
+<span class="webonly">
+<br>
+(Web-only)
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62795">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62795&amp;archive=133652" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62795','133651',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62795&amp;archive=133651" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SP">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SP&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SP" class="show-title-link">Shrunken Planet</a>
+</span>
+<span class="djs">
+<br>
+with Jeffrey Davison
+</span>
+<br>
+<span class="archive-link">
+Today:
+<a href="http://www.wfmu.org/playlists/shows/62810">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62810&amp;archive=133681" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62810','133680',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62810&amp;archive=133680" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-NK">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=NK&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/NK" class="show-title-link">Burn It Down!</a>
+</span>
+<span class="djs">
+<br>
+with Nate K
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62707">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62707&amp;archive=133501" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62707','133500',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62707&amp;archive=133500" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">6am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">7am</td>
+<td class="hour" align="center" valign="middle">7am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">8am</td>
+<td class="hour" align="center" valign="middle">8am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">9am</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SN">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SN&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SN" class="show-title-link">Surface Noise</a>
+</span>
+<span class="djs">
+<br>
+with Joe McGasko
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62722">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62722&amp;archive=133527" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62722','133526',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62722&amp;archive=133526" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-LM">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=LM&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/LM" class="show-title-link">This Is The Modern World</a>
+</span>
+<span class="djs">
+<br>
+with Trouble
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62737">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62737&amp;archive=133557" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62737','133556',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62737&amp;archive=133556" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-KF">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=KF&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/KF" class="show-title-link">Ken</a>
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62757">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62757&amp;archive=133588" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62757','133587',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62757&amp;archive=133587" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-ID">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=ID&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/ID" class="show-title-link">Imaginary Radio</a>
+</span>
+<span class="djs">
+<br>
+with Chris M.
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62774">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62774&amp;archive=133623" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62774','133622',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62774&amp;archive=133622" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-BY">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=BY&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/BY" class="show-title-link">Marty McSorley</a>
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62797">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62797&amp;archive=133654" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62797','133653',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62797&amp;archive=133653" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="2" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-BB">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=BB&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/BB" class="show-title-link">Bob Brainen</a>
+</span>
+<br>
+<span class="archive-link">
+Today:
+<a href="http://www.wfmu.org/playlists/shows/62811">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62811&amp;archive=133683" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62811','133682',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62811&amp;archive=133682" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-RS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=RS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/RS" class="show-title-link">Reggae Schoolroom</a>
+</span>
+<span class="djs">
+<br>
+with Jeff Sarge
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62709">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62709&amp;archive=133503" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62709','133502',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62709&amp;archive=133502" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">9am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">10am</td>
+<td class="hour" align="center" valign="middle">10am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">11am</td>
+<td rowspan="2" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SH">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SH&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SH" class="show-title-link">Michael Shelley</a>
+</span>
+<br>
+<span class="archive-link">
+Today:
+<a href="http://www.wfmu.org/playlists/shows/62780">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62780&amp;archive=133685" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62780','133684',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62780&amp;archive=133684" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">11am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">Noon</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-TM">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=TM&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/TM" class="show-title-link">Three Chord Monte</a>
+</span>
+<span class="djs">
+<br>
+with Joe Belock
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62726">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62726&amp;archive=133533" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62726','133532',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62726&amp;archive=133532" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-LB">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=LB&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/LB" class="show-title-link">Liz Berg</a>
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62743">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62743&amp;archive=133562" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62743','133561',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62743&amp;archive=133561" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DH">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DH&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DH" class="show-title-link">Duane Train</a>
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62761">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62761&amp;archive=133596" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62761','133595',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62761&amp;archive=133595" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DK">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DK&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DK" class="show-title-link">Diane's Kamikaze Fun Machine</a>
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62777">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62777&amp;archive=133626" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62777','133625',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62777&amp;archive=133625" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-BK">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=BK&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/BK" class="show-title-link">Bryce</a>
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62799">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62799&amp;archive=133661" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62799','133660',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62799&amp;archive=133660" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-GJ">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=GJ&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/Playlists/GJ/archives.html" class="show-title-link">The Glen Jones Radio Programme</a>
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62711">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62711&amp;archive=133505" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62711','133504',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62711&amp;archive=133504" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">Noon</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">1pm</td>
+<td rowspan="2" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-FP">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=FP&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/FP" class="show-title-link">Fool's Paradise</a>
+</span>
+<span class="djs">
+<br>
+with Rex
+</span>
+<br>
+<span class="archive-link">
+Sep 5:
+<a href="http://www.wfmu.org/playlists/shows/62478">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62478&amp;archive=133091" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62478','133090',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62478&amp;archive=133090" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">1pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">2pm</td>
+<td class="hour" align="center" valign="middle">2pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">3pm</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-JP">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=JP&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/JP" class="show-title-link">Jim Price</a>
+</span>
+(3 - 3:01)
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62728">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62728&amp;archive=133529" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62728','133528',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62728&amp;archive=133528" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<div style="width:80%;height:2px;line-height:1px;background:#000;">&nbsp;</div>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SW">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SW&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SW" class="show-title-link">Scott Williams</a>
+</span>
+(3:01 - 6)
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62729">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62729&amp;archive=133535" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62729','133534',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62729&amp;archive=133534" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-BT">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=BT&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/BT" class="show-title-link">Brian Turner</a>
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62745">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62745&amp;archive=133565" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62745','133564',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62745&amp;archive=133564" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-IC">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=IC&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/IC" class="show-title-link">Irwin Chusid</a>
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62723">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62723&amp;archive=133598" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62723','133597',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62723&amp;archive=133597" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-FR">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=FR&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/FR" class="show-title-link">Strength Through Failure</a>
+</span>
+<span class="djs">
+<br>
+with Fabio
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62781">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62781&amp;archive=133632" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62781','133631',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62781&amp;archive=133631" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-CF">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=CF&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/CF" class="show-title-link">Sophisticated Boom Boom</a>
+</span>
+<span class="djs">
+<br>
+with Sheila B.
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62803">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62803&amp;archive=133665" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62803','133664',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62803&amp;archive=133664" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-TA">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=TA&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/TA" class="show-title-link">Todd-o-phonic Todd</a>
+</span>
+<br>
+<span class="archive-link">
+7 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62698">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62698&amp;archive=133487" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62698','133486',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62698&amp;archive=133486" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="2" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-TW">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=TW&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/TW" class="show-title-link">Teenage Wasteland</a>
+</span>
+<span class="djs">
+<br>
+with Bill Kelly
+</span>
+<br>
+<span class="archive-link">
+13 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62602">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62602&amp;archive=133311" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62602','133310',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62602&amp;archive=133310" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">3pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">4pm</td>
+<td class="hour" align="center" valign="middle">4pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">5pm</td>
+<td rowspan="2" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-GF">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=GF&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/GF" class="show-title-link">Gaylord Fields</a>
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62712">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62712&amp;archive=133509" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62712','133508',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62712&amp;archive=133508" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">5pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">6pm</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-GM">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=GM&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/GM" class="show-title-link">Dr. Gameshow</a>
+</span>
+<span class="djs">
+<br>
+with Jo Firestone
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62733">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62733&amp;archive=133537" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62733','133536',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62733&amp;archive=133536" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-BC">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=BC&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/BC" class="show-title-link">Sportsy Talk</a>
+</span>
+<span class="djs">
+<br>
+with Bronwyn C. and Jim the Poet
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62749">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62749&amp;archive=133573" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62749','133572',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62749&amp;archive=133572" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SD">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SD&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SD" class="show-title-link">Seven Second Delay</a>
+</span>
+<span class="djs">
+<br>
+with Ken and Andy
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62764">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62764&amp;archive=133600" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62764','133599',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62764&amp;archive=133599" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-CP">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=CP&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/CP" class="show-title-link">The Dusty Show</a>
+</span>
+<span class="djs">
+<br>
+with Clay Pigeon
+</span>
+<br>
+<span class="archive-link">
+Sep 10:
+<a href="http://www.wfmu.org/playlists/shows/62560">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62560&amp;archive=133237" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62560','133236',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62560&amp;archive=133236" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AF">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AF&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AF" class="show-title-link">Shut Up, Weirdo</a>
+</span>
+<span class="djs">
+<br>
+with Frangry and Michele
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62805">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62805&amp;archive=133667" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62805','133666',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62805&amp;archive=133666" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-TP">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=TP&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/TP" class="show-title-link">Transpacific Sound Paradise</a>
+</span>
+<span class="djs">
+<br>
+with Rob Weisberg
+</span>
+<br>
+<span class="archive-link">
+7 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62690">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62690&amp;archive=133489" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62690','133488',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62690&amp;archive=133488" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">6pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">7pm</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-VF">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=VF&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/VF" class="show-title-link">Vocal Fry</a>
+</span>
+<span class="djs">
+<br>
+with Dan Bodah
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62736">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62736&amp;archive=133541" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62736','133540',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62736&amp;archive=133540" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-PE">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=PE&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/PE" class="show-title-link">Morricone Island</a>
+</span>
+<span class="djs">
+<br>
+with Devon E. Levins
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62752">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62752&amp;archive=133575" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62752','133574',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62752&amp;archive=133574" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DU">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DU&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DU" class="show-title-link">DIFM (Do It For Me)</a>
+</span>
+<span class="djs">
+<br>
+with Pseu Braun
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62762">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62762&amp;archive=133603" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62762','133602',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62762&amp;archive=133602" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-HA">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=HA&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/HA" class="show-title-link">Miracle Nutrition with Hearty White</a>
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62789">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62789&amp;archive=133638" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62789','133637',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62789&amp;archive=133637" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-BJ">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=BJ&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/BJ" class="show-title-link">Put The Needle On The Record</a>
+</span>
+<span class="djs">
+<br>
+with Billy Jam
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62798">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62798&amp;archive=133669" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62798','133668',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62798&amp;archive=133668" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-HC">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=HC&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/HC" class="show-title-link">Hello Children</a>
+</span>
+<span class="djs">
+<br>
+with Faye
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62715">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62715&amp;archive=133513" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62715','133512',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62715&amp;archive=133512" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">7pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">8pm</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DT">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DT&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DT" class="show-title-link">Infinite Distortion</a>
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62738">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62738&amp;archive=133543" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62738','133542',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62738&amp;archive=133542" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AP">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AP&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AP" class="show-title-link">The Antique Phonograph Music Program</a>
+</span>
+<span class="djs">
+<br>
+with MAC
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62753">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62753&amp;archive=133577" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62753','133576',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62753&amp;archive=133576" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-HG">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=HG&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/HG" class="show-title-link">Honky Tonk Radio Girl</a>
+</span>
+<span class="djs">
+<br>
+with Becky
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62766">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62766&amp;archive=133605" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62766','133604',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62766&amp;archive=133604" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-CR">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=CR&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/CR" class="show-title-link">Sinner's Crossroads</a>
+</span>
+<span class="djs">
+<br>
+with Kevin Nutt
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62791">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62791&amp;archive=133640" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62791','133639',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62791&amp;archive=133639" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="1" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SV">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SV&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SV" class="show-title-link">Downtown Soulville</a>
+</span>
+<span class="djs">
+<br>
+with Mr. Fine Wine
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62806">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62806&amp;archive=133673" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62806','133672',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62806&amp;archive=133672" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">8pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">9pm</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-GS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=GS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/GS" class="show-title-link">The Goddamn Dave Hill Show</a>
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62730">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62730&amp;archive=133547" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62730','133546',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62730&amp;archive=133546" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-IT">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=IT&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/IT" class="show-title-link">Irene Trudel</a>
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62747">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62747&amp;archive=133579" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62747','133578',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62747&amp;archive=133578" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-ED">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=ED&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/ED" class="show-title-link">The Evan "Funk" Davies Show</a>
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62769">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62769&amp;archive=133613" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62769','133612',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62769&amp;archive=133612" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-MS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=MS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/MS" class="show-title-link">Music To Spazz By</a>
+</span>
+<span class="djs">
+<br>
+with Dave the Spazz
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62787">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62787&amp;archive=133644" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62787','133643',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62787&amp;archive=133643" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DN">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DN&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DN" class="show-title-link">Daniel Blumin</a>
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62807">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62807&amp;archive=133675" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62807','133674',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62807&amp;archive=133674" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-RR">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=RR&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/RR" class="show-title-link">Prove It All Night!</a>
+</span>
+<span class="djs">
+<br>
+with Pat Byrne
+</span>
+<br>
+<span class="archive-link">
+Sep 5:
+<a href="http://www.wfmu.org/playlists/shows/62482">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62482&amp;archive=133097" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62482','133096',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62482&amp;archive=133096" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">9pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">10pm</td>
+<td rowspan="2" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DM">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DM&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DM" class="show-title-link">World of Echo</a>
+</span>
+<span class="djs">
+<br>
+with Dave Mandl
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62716">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62716&amp;archive=133515" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62716','133514',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62716&amp;archive=133514" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">10pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">11pm</td>
+<td class="hour" align="center" valign="middle">11pm</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">Mid</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-JJ">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=JJ&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/JJ" class="show-title-link">The Frow Show</a>
+</span>
+<span class="djs">
+<br>
+with Jesse Jarnow
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62739">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62739&amp;archive=133549" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62739','133548',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62739&amp;archive=133548" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-WB">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=WB&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/WB" class="show-title-link">Wm. Berger presents My Castle of Quiet</a>
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62754">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62754&amp;archive=133581" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62754','133580',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62754&amp;archive=133580" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-ND">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=ND&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/ND" class="show-title-link">Nickel and Dime Radio</a>
+</span>
+<span class="djs">
+<br>
+with $mall ¢hange
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62770">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62770&amp;archive=133615" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62770','133614',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62770&amp;archive=133614" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-NN">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=NN&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/NN" class="show-title-link">Nick Name</a>
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62793">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62793&amp;archive=133646" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62793','133645',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62793&amp;archive=133645" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-IS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=IS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/IS" class="show-title-link">Inflatable Squirrel Carcass</a>
+</span>
+<span class="djs">
+<br>
+with Rich Hazelton
+</span>
+<br>
+<span class="archive-link">
+Sep 12:
+<a href="http://www.wfmu.org/playlists/shows/62583">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62583&amp;archive=133279" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62583','133278',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62583&amp;archive=133278" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-MY">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=MY&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/MY" class="show-title-link">100% Whatever</a>
+</span>
+<span class="djs">
+<br>
+with Mary Wing
+</span>
+<br>
+<span class="archive-link">
+7 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62704">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62704&amp;archive=133493" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62704','133492',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62704&amp;archive=133492" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-TQ">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=TQ&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/TQ" class="show-title-link">Therese</a>
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62717">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62717&amp;archive=133517" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62717','133516',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62717&amp;archive=133516" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">Mid</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">1am</td>
+<td class="hour" align="center" valign="middle">1am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">2am</td>
+<td class="hour" align="center" valign="middle">2am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">3am</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AG">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AG&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AG" class="show-title-link">Samantha</a>
+</span>
+<br>
+<span class="archive-link">
+5 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62740">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62740&amp;archive=133551" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62740','133550',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62740&amp;archive=133550" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-GT">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=GT&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/GT" class="show-title-link">Garbage Time</a>
+</span>
+<span class="djs">
+<br>
+with Matt Warwick
+</span>
+<br>
+<span class="archive-link">
+4 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62755">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62755&amp;archive=133583" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62755','133582',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62755&amp;archive=133582" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SG">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SG&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SG" class="show-title-link">Rolling Motion</a>
+</span>
+<br>
+<span class="archive-link">
+3 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62771">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62771&amp;archive=133617" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62771','133616',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62771&amp;archive=133616" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SS" class="show-title-link">Stan</a>
+</span>
+<br>
+<span class="archive-link">
+2 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62794">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62794&amp;archive=133648" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62794','133647',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62794&amp;archive=133647" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-YN">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=YN&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/YN" class="show-title-link">Dance With Me, Stanley</a>
+</span>
+<span class="djs">
+<br>
+with Stashu
+</span>
+<br>
+<span class="archive-link">
+Yesterday:
+<a href="http://www.wfmu.org/playlists/shows/62731">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62731&amp;archive=133679" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62731','133678',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62731&amp;archive=133678" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-UT">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=UT&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/UT" class="show-title-link">Blurred and Obscured</a>
+</span>
+<span class="djs">
+<br>
+with Jonathan Herweg
+</span>
+<br>
+<span class="archive-link">
+7 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62705">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62705&amp;archive=133495" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62705','133494',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62705&amp;archive=133494" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td rowspan="3" colspan="1" class="program" align="center">
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AH">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AH&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AH" class="show-title-link">The Avant Ghetto</a>
+</span>
+<span class="djs">
+<br>
+with Jeff Conklin
+</span>
+<br>
+<span class="archive-link">
+6 days ago:
+<a href="http://www.wfmu.org/playlists/shows/62720">Playlist</a>
+<br>
+<a href="http://www.wfmu.org/listen.m3u?show=62720&amp;archive=133519" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62720','133518',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62720&amp;archive=133518" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</td>
+<td class="hour" align="center" valign="middle">3am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">4am</td>
+<td class="hour" align="center" valign="middle">4am</td>
+</tr>
+<tr>
+<td class="hour" align="center" valign="middle">5am</td>
+<td class="hour" align="center" valign="middle">5am</td>
+</tr>
+<tr>
+<th class="day"></th>
+<th class="day" width="14%">MONDAY</th>
+<th class="day" width="14%">TUESDAY</th>
+<th class="day" width="14%">WEDNESDAY</th>
+<th class="day" width="14%">THURSDAY</th>
+<th class="day" width="14%">FRIDAY</th>
+<th class="day" width="14%">SATURDAY</th>
+<th class="day" width="14%">SUNDAY</th>
+<th class="day"></th>
+</tr>
+</tbody></table>
+<div class="fill-ins">
+<h2>
+Past week's WFMU fill-ins:
+</h2>
+<ul>
+<li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-EG">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=EG&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/EG" class="show-title-link">Ephemeral Riffage</a>
+</span>
+<span class="djs">
+with Cheyenne
+</span>
+-
+<span class="archive-link">
+Saturday Sep. 19:
+<a href="http://www.wfmu.org/playlists/shows/62702">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62702&amp;archive=133491" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62702','133490',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62702&amp;archive=133490" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Ephemeral Roughage"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DY">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DY&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DY" class="show-title-link">Debbie Does WFMU</a>
+</span>
+<span class="djs">
+with Debbie D.
+</span>
+-
+<span class="archive-link">
+Sunday Sep. 20:
+<a href="http://www.wfmu.org/playlists/shows/62710">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62710&amp;archive=133507" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62710','133506',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62710&amp;archive=133506" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Teenage Wasteland"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-PE">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=PE&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/PE" class="show-title-link">Morricone Island</a>
+</span>
+<span class="djs">
+with Devon E. Levins
+</span>
+-
+<span class="archive-link">
+Saturday Sep. 26:
+<a href="http://www.wfmu.org/playlists/shows/62808">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62808&amp;archive=133677" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62808','133676',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62808&amp;archive=133676" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Inflatable Pizza Squirrel"
+</span>
+</li></ul>
+<h2>
+Give the Drummer Radio:
+</h2>
+<ul>
+<li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-LY">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=LY&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/LY" class="show-title-link">Live from Leroy</a>
+</span>
+<span class="djs">
+with djcasequarter
+</span>
+-
+<span class="archive-link">
+Saturday Sep. 19:
+<a href="http://www.wfmu.org/playlists/shows/62701">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62701&amp;archive=133497" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62701','133496',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62701&amp;archive=133496" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-HU">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=HU&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/HU" class="show-title-link">The Magic Hour</a>
+</span>
+<span class="djs">
+with Jeff Golick
+</span>
+-
+<span class="archive-link">
+Monday Sep. 21:
+<a href="http://www.wfmu.org/playlists/shows/62724">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62724&amp;archive=133531" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62724','133530',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62724&amp;archive=133530" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "039"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-VE">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=VE&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/VE" class="show-title-link">Play Vertigo</a>
+</span>
+<span class="djs">
+with Mayuko
+</span>
+-
+<span class="archive-link">
+Monday Sep. 21:
+<a href="http://www.wfmu.org/playlists/shows/62719">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62719&amp;archive=133539" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62719','133538',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62719&amp;archive=133538" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "I Give Thee All, I Can No More"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-GL">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=GL&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/GL" class="show-title-link">Global Grease</a>
+</span>
+<span class="djs">
+with Kim Sorise
+</span>
+-
+<span class="archive-link">
+Monday Sep. 21:
+<a href="http://www.wfmu.org/playlists/shows/62734">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62734&amp;archive=133545" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62734','133544',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62734&amp;archive=133544" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "All for nothing"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AI">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AI&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AI" class="show-title-link">If You Lose Your Horse</a>
+</span>
+<span class="djs">
+with Sam Segal
+</span>
+-
+<span class="archive-link">
+Monday Sep. 21:
+<a href="http://www.wfmu.org/playlists/shows/62735">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62735&amp;archive=133571" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62735','133570',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62735&amp;archive=133570" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "I Have Lost My Horse"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-TC">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=TC&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/TC" class="show-title-link">Tony Coulter</a>
+</span>
+-
+<span class="archive-link">
+Tuesday Sep. 22:
+<a href="http://www.wfmu.org/playlists/shows/62742">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62742&amp;archive=133559" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62742','133558',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62742&amp;archive=133558" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Cute Thumbs"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DS" class="show-title-link">Give The Drummer Some</a>
+</span>
+<span class="djs">
+with Doug Schulkind
+</span>
+-
+<span class="archive-link">
+Tuesday Sep. 22:
+<a href="http://www.wfmu.org/playlists/shows/62748">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62748&amp;archive=133569" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62748','133568',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62748&amp;archive=133568" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Stream of righteousness"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-KK">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=KK&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/KK" class="show-title-link">Kaminsky Kamoutsky with Jesse</a>
+</span>
+-
+<span class="archive-link">
+Tuesday Sep. 22:
+<a href="http://www.wfmu.org/playlists/shows/62751">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62751&amp;archive=133592" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62751','133591',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62751&amp;archive=133591" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Razzle dazzle African eighties and the paranoid sounds of feedback loops"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-EG">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=EG&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/EG" class="show-title-link">Ephemeral Riffage</a>
+</span>
+<span class="djs">
+with Cheyenne
+</span>
+-
+<span class="archive-link">
+Wednesday Sep. 23:
+<a href="http://www.wfmu.org/playlists/shows/62759">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62759&amp;archive=133590" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62759','133589',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62759&amp;archive=133589" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Destination: Riffage"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AN">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AN&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AN" class="show-title-link">Nazario Scenario</a>
+</span>
+-
+<span class="archive-link">
+Wednesday Sep. 23:
+<a href="http://www.wfmu.org/playlists/shows/62750">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62750&amp;archive=133594" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62750','133593',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62750&amp;archive=133593" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "We had joy, we had fun, we had hedgehogs in the sun"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-PG">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=PG&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/PG" class="show-title-link">Bodega Pop Live</a>
+</span>
+<span class="djs">
+with Gary Sullivan
+</span>
+-
+<span class="archive-link">
+Wednesday Sep. 23:
+<a href="http://www.wfmu.org/playlists/shows/62758">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62758&amp;archive=133611" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62758','133610',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62758&amp;archive=133610" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "True Grit"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-CL">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=CL&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/CL" class="show-title-link">Busy Doing Nothing</a>
+</span>
+<span class="djs">
+with Charlie
+</span>
+-
+<span class="archive-link">
+Thursday Sep. 24:
+<a href="http://www.wfmu.org/playlists/shows/62775">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62775&amp;archive=133634" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62775','133633',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62775&amp;archive=133633" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Blue room"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-FE">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=FE&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/FE" class="show-title-link">Matt Fiveash</a>
+</span>
+-
+<span class="archive-link">
+Thursday Sep. 24:
+<a href="http://www.wfmu.org/playlists/shows/62776">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62776&amp;archive=133630" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62776','133629',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62776&amp;archive=133629" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-EX">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=EX&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/EX" class="show-title-link">Explorers Room</a>
+</span>
+<span class="djs">
+with Flash Strap
+</span>
+-
+<span class="archive-link">
+Thursday Sep. 24:
+<a href="http://www.wfmu.org/playlists/shows/62784">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62784&amp;archive=133657" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62784','133656',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62784&amp;archive=133656" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Take it Easy, My Brother: Summer Never Ends in the Explorers Room"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DS">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DS&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DS" class="show-title-link">Give The Drummer Some</a>
+</span>
+<span class="djs">
+with Doug Schulkind
+</span>
+-
+<span class="archive-link">
+Friday Sep. 25:
+<a href="http://www.wfmu.org/playlists/shows/62792">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62792&amp;archive=133659" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62792','133658',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62792&amp;archive=133658" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "What goes around, goes around"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-HD">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=HD&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/HD" class="show-title-link">Hinky Dinky Time</a>
+</span>
+<span class="djs">
+with Uncle Michael
+</span>
+-
+<span class="archive-link">
+Friday Sep. 25:
+<a href="http://www.wfmu.org/playlists/shows/62790">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62790&amp;archive=133663" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62790','133662',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62790&amp;archive=133662" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Circumstance, without the pomp."
+</span>
+</li></ul>
+<h2>
+Rock 'n' Soul Ichiban:
+</h2>
+<ul>
+<li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-LL">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=LL&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/LL" class="show-title-link">Live at The Admiral with Dr. Filth</a>
+</span>
+-
+<span class="archive-link">
+Saturday Sep. 19:
+<a href="http://www.wfmu.org/playlists/shows/62708">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62708&amp;archive=133499" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62708','133498',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62708&amp;archive=133498" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-RG">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=RG&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/RG" class="show-title-link">The Real Nitty Gritty</a>
+</span>
+<span class="djs">
+with Real Nitty Gritty Tania and Thomas Torment
+</span>
+-
+<span class="archive-link">
+Sunday Sep. 20:
+<a href="http://www.wfmu.org/playlists/shows/62714">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62714&amp;archive=133511" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62714','133510',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62714&amp;archive=133510" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Touch"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AT">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AT&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AT" class="show-title-link">What's Happening?!?!</a>
+</span>
+<span class="djs">
+with Matt M
+</span>
+-
+<span class="archive-link">
+Tuesday Sep. 22:
+<a href="http://www.wfmu.org/playlists/shows/62744">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62744&amp;archive=133567" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62744','133566',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62744&amp;archive=133566" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Sgt Flippers"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-CE">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=CE&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/CE" class="show-title-link">Crayons to Perfume</a>
+</span>
+<span class="djs">
+with Glynis GirlGroupGirl
+</span>
+-
+<span class="archive-link">
+Wednesday Sep. 23:
+<a href="http://www.wfmu.org/playlists/shows/62765">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62765&amp;archive=133607" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62765','133606',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62765&amp;archive=133606" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "You can REALLY count on the girls!"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-FY">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=FY&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/FY" class="show-title-link">Fringe Factory</a>
+</span>
+<span class="djs">
+with Glynis GirlGroupGirl and DJ Vikki V and Richard W
+</span>
+-
+<span class="archive-link">
+Wednesday Sep. 23:
+<a href="http://www.wfmu.org/playlists/shows/62767">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62767&amp;archive=133609" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62767','133608',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62767&amp;archive=133608" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Long Haired, Wild Groups!!!!!!!!!!"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DJ">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DJ&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DJ" class="show-title-link">Diesel Smoke &amp; Dangerous Curves</a>
+</span>
+-
+<span class="archive-link">
+Thursday Sep. 24:
+<a href="http://www.wfmu.org/playlists/shows/62788">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62788&amp;archive=133642" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62788','133641',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62788&amp;archive=133641" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DY">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DY&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DY" class="show-title-link">Debbie Does WFMU</a>
+</span>
+<span class="djs">
+with Debbie D.
+</span>
+-
+<span class="archive-link">
+Friday Sep. 25:
+<a href="http://www.wfmu.org/playlists/shows/62785">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62785&amp;archive=133671" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62785','133670',2,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=2&amp;show=62785&amp;archive=133670" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=540,height=164,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Soulfinger"
+</span>
+</li></ul>
+<h2>
+Podcast-only:
+</h2>
+<ul>
+<li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-KB">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=KB&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/KB" class="show-title-link">Bitslap</a>
+</span>
+<span class="djs">
+with KBC
+</span>
+-
+<span class="archive-link">
+Tuesday Sep. 22:
+<a href="http://www.wfmu.org/playlists/shows/62725">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62725" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62725','',1,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=1&amp;show=62725&amp;archive=" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=645,height=135,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Hot Rods"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-DX">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=DX&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/DX" class="show-title-link">Dave Emory</a>
+</span>
+-
+<span class="archive-link">
+Tuesday Sep. 22:
+<a href="http://www.wfmu.org/playlists/shows/62635">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62635" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62635','',1,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=1&amp;show=62635&amp;archive=" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=645,height=135,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "FTR #842: Inter­view (#5) with Peter Lev­enda about “The Hitler Legacy”"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AV">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AV&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AV" class="show-title-link">Aerial View</a>
+</span>
+<span class="djs">
+with Chris T.
+</span>
+-
+<span class="archive-link">
+Tuesday Sep. 22:
+<a href="http://www.wfmu.org/playlists/shows/62727">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62727" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62727','',1,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=1&amp;show=62727&amp;archive=" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=645,height=135,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Learn Guitar With Keith Hartel"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-SH">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=SH&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/SH" class="show-title-link">Michael Shelley</a>
+</span>
+-
+<span class="archive-link">
+Thursday Sep. 24:
+<a href="http://www.wfmu.org/playlists/shows/62779">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62779" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62779','',1,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=1&amp;show=62779&amp;archive=" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=645,height=135,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Podcast Encore Special: Roy Head and Betty Harris"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-LB">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=LB&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/LB" class="show-title-link">Liz Berg</a>
+</span>
+-
+<span class="archive-link">
+Thursday Sep. 24:
+<a href="http://www.wfmu.org/playlists/shows/62783">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62783" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62783','',1,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=1&amp;show=62783&amp;archive=" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=645,height=135,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Podcast #250: Betamax"
+</span>
+</li><li>
+<span class="show-title">
+<span class="KDBFavIcon KDBprogram" id="KDBprogram-AO">
+<a href="http://www.wfmu.org/auth.php?a=fav_icon_clicked&amp;type=program&amp;id=AO&amp;page_type=recentarchives&amp;page_id=36&amp;r=http%3A%2F%2Fwww.wfmu.org%2Frecentarchives.php" onclick="KDBFav.fav_icon_clicked(event, this.parentNode);" title="Click for options"><img src="WFMU%27s%20Recent%20Archives_files/star_empty_2.png" alt="Options" border="0"></a>
+</span>
+<a href="http://www.wfmu.org/playlists/AO" class="show-title-link">The Eternal Now</a>
+</span>
+<span class="djs">
+with Andy Ortmann
+</span>
+-
+<span class="archive-link">
+Thursday Sep. 24:
+<a href="http://www.wfmu.org/playlists/shows/62782">Playlist</a>
+-
+<a href="http://www.wfmu.org/listen.m3u?show=62782" class="archive-link">MP3</a> | <script type="text/javascript">
+accuflashlink('62782','',1,'',0,'');
+</script><a href="http://www.wfmu.org/flashplayer.php?version=1&amp;show=62782&amp;archive=" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=645,height=135,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Pop‑up</a>
+</span>
+<span class="djs">
+- "Episeode 88"
+</span>
+</li></ul>
+</div>
+<div class="everything" align="center">
+<hr>
+<!-- SiteSearch Google -->
+<form method="GET" action="http://www.google.com/search">
+<input name="ie" value="UTF-8" type="hidden">
+<input name="oe" value="UTF-8" type="hidden">
+<font face="verdana,geneva,arial" size="1">
+Search the WFMU website (Google)
+</font>
+<input name="q" size="20" maxlength="255" type="text">
+<input name="btnG" value="Find" type="submit">
+<input name="domains" value="wfmu.org" type="hidden"><input name="sitesearch" value="wfmu.org" checked="checked" type="hidden">
+</form>
+<!-- SiteSearch Google -->
+<br>
+<font size="2"><a href="http://www.wfmu.org/audiostream.shtml" onmouseover="window.status='Broadcasting live on the net!'; return true" onmouseout='window.status="";'>Listen&nbsp;on&nbsp;the&nbsp;Internet</a>
+&nbsp;|&nbsp;
+<a href="http://www.wfmu.org/reachout.html" onmouseover="window.status='Email lists for the entire staff, pledging and much more'; return true" onmouseout='window.status="";'>Contact&nbsp;Us</a>
+&nbsp;|&nbsp;
+<a href="http://www.wfmu.org/onair.html" onmouseover="window.status='The meat of the matter'; return true" onmouseout='window.status="";'>Music&nbsp;&amp;&nbsp;Programs</a>
+&nbsp;|&nbsp;
+<a href="http://www.wfmu.org/" onmouseover="window.status='WFMU Home Page'; return true" onmouseout='window.status="";'>WFMU&nbsp;Home&nbsp;Page</a>
+&nbsp;|&nbsp;
+<a href="http://blog.wfmu.org/" onmouseover="window.status='WFMU\'s Beware of the Blog'; return true" onmouseout='window.status="";'>Blog</a>
+&nbsp;|&nbsp;
+<a href="http://www.wfmu.org/marathon/" onmouseover="window.status='Support freeform radio'; return true" onmouseout='window.status="";'>Support&nbsp;Us</a>
+&nbsp;|&nbsp;
+<a href="http://www.wfmu.org/faq.html" onmouseover="window.status='You got questions? We got answers!'; return true" onmouseout='window.status="";'>FAQ</a>
+<br><br>
+Live Audio Streams:
+<a href="http://www.wfmu.org/listen-live/" onclick="javascript:window.open(this.href,'kdbflashplayerwindow','width=458,height=120,scrollbars=no,resizable=yes,toolbar=no,directories=no,location=no,menubar=no,status=no'); return false;">Flash</a>&nbsp; |&nbsp;
+<a href="http://www.wfmu.org/wfmu.pls">128k MP3</a>
+&nbsp; |&nbsp; <a href="http://www.wfmu.org/wfmu32.pls">32k MP3</a>&nbsp; |&nbsp; <a href="http://www.wfmu.org/wfmu.ram">20k Real</a>&nbsp; |&nbsp; <a href="http://www.wfmu.org/wfmu.asx">20k Windows</a>
+</font>
+<hr>
+</div>
+<div class="everything" align="right">
+<font size="1">© 2015 WFMU.
+Generated dynamically by <strong><a href="http://kenzodb.com/" style="text-decoration:none" target="_blank">KenzoDB</a></strong>, (C) 2000-2015 <a href="http://lastever.org/email" target="_blank">Ken Garson</a>
+</font>
+</div>
+<!-- async google analytics code MA 2011-02-25 -->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-446006-1']);
+_gaq.push(['_trackPageview']);
+_gaq.push(['_trackPageLoadTime']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+var _sf_async_config={uid:36453,domain:"wfmu.org"};
+(function(){
+function loadChartbeat() {
+window._sf_endpt=(new Date()).getTime();
+var e = document.createElement('script');
+e.setAttribute('language', 'javascript');
+e.setAttribute('type', 'text/javascript');
+e.setAttribute('src',
+(("https:" == document.location.protocol) ? "https://a248.e.akamai.net/chartbeat.download.akamai.com/102508/" : "http://static.chartbeat.com/") +
+"js/chartbeat.js");
+document.body.appendChild(e);
+}
+var oldonload = window.onload;
+window.onload = (typeof window.onload != 'function') ?
+loadChartbeat : function() { oldonload(); loadChartbeat(); };
+})();
+</script>
+
+
+<script src="WFMU%27s%20Recent%20Archives_files/chartbeat.js" type="text/javascript" language="javascript"></script></body></html>

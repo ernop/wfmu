@@ -1,0 +1,30 @@
+.prof_utilnav p, .prof_utilnav button {
+   font-family: arial,helvetica,sans-serif;
+}
+.prof_utilnav p {
+   color:blue;
+}
+.prof_utilnav button, .prof_utilnav button p {
+   color:blue !important;
+}
+.prof_utilnav p a:link {color:blue;}
+.prof_utilnav p a:hover {color:blue;}
+.prof_utilnav p a:active {color:blue;}
+.prof_utilnav p a:visited {color:blue;}
+/* full line color params. KG 1/14/13 */
+/*body {background:#ffffff;}*/
+.prof_utilnav {width:100%;height:34px;float:left;padding:0;margin:0;text-align:right;}
+.prof_utilnav p span {padding-right: 12px;}
+.prof_utilnav p, .prof_utilnav button {
+   display:inline; font-size:11px;
+}
+.prof_utilnav p a:hover {text-decoration:underline;}
+.prof_utilnav  form {display: inline; margin: 0;}
+.prof_utilnav input, .prof_utilnav button {
+   background: none;
+   border: none;
+   cursor:pointer;
+   text-decoration-line:underline;
+}
+div.prof_utilnav_after {clear:both}
+div.prof_utilnav_wrap {white-space:nowrap;}

@@ -1,0 +1,73 @@
+/* Cross-platform scrollable table, based on approach by Stu Nicholls, which was (C) 2004-2013
+ * From: http://www.cssplay.co.uk/menu/tablescroll.html
+ * License info:
+ *    "You may use this method on your personal 'non-profit' web site without seeking my permission.
+ *      A link back to CSSplay is always appreciated.
+ *      Commercial usage is also permitted without seeking approval,
+ *      but I would ask that a donation is considered to support my work on CSSPlay."  - Stu Nicholls
+ * Adapted and modified 3/30/13 by Ken Garson.
+ */
+
+.fav_songs_section .scrollTableOne {width:728px; border-collapse:collapse; margin:0;}
+.fav_songs_section .scrollTableTwo {width:706px; border-collapse:collapse;}
+.fav_songs_section .th1 {width:20px;}
+.fav_songs_section .th2 {width:165px;}
+.fav_songs_section .th3 {width:170px;}
+.fav_songs_section .th4 {width:180px;}
+.fav_songs_section .th5 {width:80px;}
+
+.fav_songs_section .td1 {width:14px;}
+.fav_songs_section .td2 {width:189px;}
+.fav_songs_section .td3 {width:189px;}
+.fav_songs_section .td4 {width:209px;}
+.fav_songs_section .td5 {width:80px;}
+
+div.fav_images_section {
+   width:728px;
+}
+/*
+.fav_images_section .scrollTableOne {width:728px; border-collapse:collapse; margin:0;}
+.fav_images_section .scrollTableTwo {width:706px; border-collapse:collapse;}
+.fav_images_section .th1 {width:20px;}
+.fav_images_section .th2 {width:476px;}
+.fav_images_section .th3 {width:80px;}
+
+.fav_images_section .td1 {width:14px;}
+.fav_images_section .td2 {width:500px;}
+.fav_images_section .td3 {width:80px;}
+*/
+
+.fav_programs_section .scrollTableOne {width:352px; border-collapse:collapse; margin:0;}
+.fav_programs_section .scrollTableTwo {width:342px; border-collapse:collapse;}
+.fav_programs_section .th1 {width:20px;}
+.fav_programs_section .th2 {width:300px;}
+
+.fav_programs_section .td1 {width:14px;}
+.fav_programs_section .td2 {width:280px;}
+
+.fav_episodes_section .scrollTableOne {width:538px; border-collapse:collapse; margin:0;}
+.fav_episodes_section .scrollTableTwo {width:516px; border-collapse:collapse;}
+.fav_episodes_section .th1 {width:20px;}
+.fav_episodes_section .th2 {width:406px;}
+.fav_episodes_section .th3 {width:80px;}
+
+.fav_episodes_section .td1 {width:14px;}
+.fav_episodes_section .td2 {width:406px;}
+.fav_episodes_section .td3 {width:80px;}
+
+.fav_users_section .scrollTableOne {width:358px; border-collapse:collapse; margin:0;}
+.fav_users_section .scrollTableTwo {width:346px; border-collapse:collapse;}
+.fav_users_section .th1 {width:20px;}
+.fav_users_section .th2 {width:306px;}
+
+.fav_users_section .td1 {width:14px;}
+.fav_users_section .td2 {width:306px;}
+
+.scrollTableOne {background:rgb(0, 187, 238); border:2px solid #aaa; color:#fff;}
+.scrollTableOne td {border:1px solid #fff; color:#fff;}
+.scrollTableOne tbody {background:#fff; color:#000;}
+.scrollTableOne caption, .fav_images_section .caption {background:#fff; color:#697210; font-size:1.2em; margin:0 auto; text-align:left; font-weight:bold;}
+.scrollTableTwo td {background:#eee; color:#000;}
+.scrollTableOne th, .scrollTableTwo th {text-align:left;}
+.scrollTableTwo tr.alt td {background:#ddd; color:#000;}
+.scrollInner {overflow:auto;}
