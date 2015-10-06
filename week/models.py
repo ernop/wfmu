@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from util import *
 
 class DJ(GoodModel):
-    name=models.CharField(max_length=200)
+    name=models.CharField(max_length=200, blank=True, null=True)
+    
     class Meta:
         db_table='dj'  
         
@@ -81,16 +82,33 @@ class Label(GoodModel):
 class Song(GoodModel): #song-in-show actually
     name=models.CharField(max_length=200)
     artists=models.ManyToManyField(Artist, related_name='songs')
-    album=models.ForeignKey(Album, related_name='songs')
+    album=models.ForeignKey(Album, related_name='songs', blank=True,null=True)
     start_time=models.DateTimeField(blank=True,null=True)
     length=models.IntegerField(blank=True,null=True)
-    episode=models.ForeignKey(Episode, related_name='songs')
+    year=models.IntegerField(blank=True, null=True)
     
     class Meta:
         db_table='song'
         
     def __unicode__(self):
-        return '%s by %s from album %s'%(self.name or '', ', '.join([str(artist) for artist in self.artists.all()] or ''), self.album or '')
+        try:
+            res='%s by %s from album %s'%(self.name or '', ', '.join([str(artist) for artist in self.artists.all()] or ''), self.album or '')
+            str(res)
+        except:
+            res='%s by %s from album %s'%(self.name and repr(self.name) or '', ', '.join([repr(artist) for artist in self.artists.all()] or ''), self.album and repr(self.album) or '')
+        return res
+    
+class PlayedSong(GoodModel): #song-in-show actually
+    song=models.ForeignKey('Song', related_name='plays')
+    episode=models.ForeignKey('Episode', related_name='played_songs')
+    start_time=models.DateTimeField(blank=True,null=True)
+    length=models.IntegerField(blank=True,null=True)
+    
+    class Meta:
+        db_table='played_song'
+        
+    def __unicode__(self):
+        return '%s by %s from album %s played on show %s'%(self.song.name or '', ', '.join([str(artist) for artist in self.song.artists.all()] or ''), self.song.album or '', self.episode)
         
 class Comment(GoodModel):
     user=models.ForeignKey(User, related_name='comments')

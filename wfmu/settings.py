@@ -114,3 +114,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ADMIN_EXTERNAL_BASE='/admin'
+LOCAL=True

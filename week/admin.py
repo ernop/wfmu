@@ -9,6 +9,7 @@ from .models import *
 class DJAdmin(OverriddenModelAdmin):
     list_display='id name myshow myepisodes'.split()
     search_fields=['name',]
+    list_editable=['name',]
     def myshow(self, obj):
         return '<br>'.join([show.clink() for show in obj.shows.all()])
         
@@ -50,11 +51,12 @@ class ShowAdmin(OverriddenModelAdmin):
     adminify(mydj, myepisodes, myshowexists, myarchive)
     
 class EpisodeAdmin(OverriddenModelAdmin):
-    list_display='id name myshow mydj mysongs mp3_filename mp3_length mp3_offset start_time length web_only'.split()
+    list_display='id name myshow mydj myplayed_songs mp3_filename mp3_length mp3_offset start_time length web_only'.split()
     search_fields=['name','show__name',]
+    import django.contrib.admin.views
     
-    def mysongs(self, obj):
-        return '<a href="../song?episode__id=%d">songs (%d)</a>'%(obj.id, len(obj.songs.all()))
+    def myplayed_songs(self, obj):
+        return '<a href="../playedsong?episode=%d">songs (%d)</a>'%(obj.id, len(obj.played_songs.all()))
     
     def myshow(self,obj):
         return obj.show.clink()
@@ -62,7 +64,7 @@ class EpisodeAdmin(OverriddenModelAdmin):
     def mydj(self,obj):
         return obj.dj.clink()    
     
-    adminify(myshow, mydj, mysongs)
+    adminify(myshow, mydj, myplayed_songs)
     
 class AlbumAdmin(OverriddenModelAdmin):
     list_display='id name year mysongs myartists mylabel'.split()
@@ -94,16 +96,33 @@ class LabelAdmin(OverriddenModelAdmin):
     
     adminify(myalbums)
     
+class PlayedSongAdmin(OverriddenModelAdmin):
+    list_display='id mysong myplayed_episode'.split()
+    def mysong(self, obj):
+        return obj.song.clink()
+    
+    def myplayed_episode(self, obj):
+        return obj.episode.clink()    
+
+    adminify(mysong, myplayed_episode)
+    
 class SongAdmin(OverriddenModelAdmin):
-    list_display='id name myartist myalbum  start_time length'.split()
+    list_display='id name year myplayed_episodes myartist myalbum  start_time length'.split()
     search_fields=['name',]
+    
+    @debu
     def myartist(self, obj):
         return '<br>'.join([artist.clink() for artist in obj.artists.all()])
     
+    @debu
     def myalbum(self, obj):
-        return obj.album.clink()   
+        return obj.album and obj.album.clink() or 'no album'
     
-    adminify(myartist, myalbum) #mylabels
+    @debu
+    def myplayed_episodes(self, obj):
+        return '<br>'.join([ps.episode.clink() for ps in obj.plays.all()])
+    
+    adminify(myartist, myalbum, myplayed_episodes) #mylabels
     
 class CommentAdmin(OverriddenModelAdmin):
     list_display='id text myrelated_object user'.split()
@@ -134,6 +153,7 @@ admin.site.register(Artist, ArtistAdmin)
 admin.site.register(Album, AlbumAdmin)
 admin.site.register(Show, ShowAdmin)
 admin.site.register(Song, SongAdmin)
+admin.site.register(PlayedSong, PlayedSongAdmin)
 admin.site.register(Episode, EpisodeAdmin)
 admin.site.register(MicBreak, MicBreakAdmin)
 admin.site.register(Label, LabelAdmin)

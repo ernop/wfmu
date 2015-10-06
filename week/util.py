@@ -2,7 +2,123 @@ import urllib, urlparse, re, os, ConfigParser, logging, uuid, logging.config, ty
 from django.conf import settings
 log=logging.getLogger(__name__)
 
+from pyquery import PyQuery as pq
+
 from django.template import RequestContext
+
+def rip_playlist(filename=None, path=None, episode=None):
+    '''prepare lookups for later rows.'''
+    from week.models import *
+    if not episode:
+        import ipdb;ipdb.set_trace()
+        print 'need episode'
+        return False
+    if not filename and not path:
+        return False
+    lookups={}
+    VALID_ROWS={'artist':'artist', 
+                
+                'song':'song', 
+                'track':'song',
+                
+                'album':'album',
+                'album / format':'albumformat',
+                'year':'year',
+                }
+    if filename:
+        dom=pq(filename=filename)
+    else:
+        print 'not implemented'
+        return False
+    import ipdb;ipdb.set_trace()
+    row=dom("table tr th.song")
+    if not row:
+        return False
+    for ii, el in enumerate(row):
+        val=el.text and el.text.lower()
+        if not val:continue
+        if val in VALID_ROWS:
+            lookups[ii]=VALID_ROWS[val]
+    possibly_song_rows=dom("table tr")
+    ii=0
+    while 1:
+        songdata={}
+        tr=possibly_song_rows.eq(ii)
+        
+        if not tr:
+            break
+        ii+=1
+        tds=tr("td.song")
+        if len(tds)>10:
+            continue
+        if len(tds)<2:
+            continue
+        for tdnum in lookups:
+            td=tds.eq(tdnum)
+            if not td:
+                break
+            songdata[lookups[tdnum]]=td.text()
+        #now we have something like {'song':'hallelujah', 'year':'2001'}
+        
+        songdata=patchup(songdata)
+        
+        song=dict2song(songdata)
+        if song:
+            ps=PlayedSong(song=song, episode=episode)
+            ps.save()
+        try:
+            print ps
+        except:
+            print repr(ps)
+        
+def patchup(songdata):
+    '''some djs have magical formats'''
+    if 'albumformat' in songdata:
+        songdata['album']=songdata['albumformat'].split('('[0])
+    if 'year' in songdata:
+        try:
+            val = int(songdata['year'])
+            songdata['year']=str(val)
+        except:
+            try:
+                val=int(songdata['year'].split('/')[0])
+                songdata['year']=str(val)
+            except:
+                del songdata['year']
+    for k,v in songdata.items():
+        songdata[k]=v.strip('"').strip("'").strip()
+    return songdata
+        
+def dict2song(dict):
+    from week.models import *
+    if not dict:
+        return False
+    if not 'song' in dict or not dict['song']:
+        return False
+    if not 'artist' in dict or not dict['artist']:
+        return False
+    song=Song(name=dict['song'])
+    if 'year' in dict and dict['year']:
+        song.year=dict['year']
+    artist, created=Artist.objects.get_or_create(name=dict['artist'])    
+    if 'album' in dict and dict['album']:
+        if 'year' in dict:
+            album, created=Album.objects.get_or_create(name=dict['album'], year=dict['year'])
+        else:
+            album, created=Album.objects.get_or_create(name=dict['album'])
+        album.artists.add(artist)
+        song.album=album
+    if 'label' in dict:
+        label, created=Label.objects.get_or_create(name=dict['label'])
+        song.label=label
+    song.save()
+    song.artists.add(artist)
+    exi=Song.objects.filter(name=song.name, year=song.year, artists=song.artists.all(), label=song.label).exists()
+    if exi.exists():
+        import ipdb;ipdb.set_trace()
+        song.delete()
+        song = exi[0]
+    return song
 
 def adminify(*args):
     for func in args:
@@ -193,7 +309,13 @@ class GoodModel(models.Model):
             text=self
         if not tooltip:
             tooltip=''
-        return u'<a class="%s%s" title="%s" href="%s/week/%s/?id=%d">%s</a>'%(klass, tooltip, wrap, settings.ADMIN_EXTERNAL_BASE, self.__class__.__name__.lower(), self.id, text)
+        try:
+            res=u'<a class="%s%s" title="%s" href="%s/week/%s/?id=%d">%s</a>'%(klass, tooltip, wrap, settings.ADMIN_EXTERNAL_BASE, self.__class__.__name__.lower(), self.id, text)
+            return res
+        except:
+            res=u'<a class="%s%s" title="%s" href="%s/week/%s/?id=%d">%s</a>'%(klass, tooltip, wrap, settings.ADMIN_EXTERNAL_BASE, self.__class__.__name__.lower(), self.id, repr(text))
+            return res
+            
 
     def alink(self, text=None,wrap=True):
         if wrap:
